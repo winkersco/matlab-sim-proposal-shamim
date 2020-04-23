@@ -19,6 +19,10 @@ load Locations                          %Load sensor Location
 Sensors=ConfigureSensors(Model,n,X,Y);
 ploter(Sensors,Model);                  %Plot sensors
 
+%%create Q-learning%%
+Q=zeros(n,n);
+Neighbors=findNeighbors(Model,Sensors);
+
 %%%%%%%%%%%%%%%%%%%%%%%%%% Parameters initialization %%%%%%%%%%%%%%%%
 countCHs=0;         %counter for CHs
 flag_first_dead=0;  %flag_first_dead
