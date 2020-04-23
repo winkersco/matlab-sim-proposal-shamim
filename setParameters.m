@@ -47,6 +47,12 @@ NumPacket=10;
 
 %Redio Range
 RR=0.5*Area.x*sqrt(2);
+
+%maximum time
+tmax=500;
+
+%Data Rate
+DataRate=5;
 %%%%%%%%%%%%%%%%%%%%%%%%% END OF PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Save in Model %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -66,5 +72,7 @@ Model.DpacketLen=DpacketLen;
 Model.HpacketLen=HpacketLen;
 Model.NumPacket=NumPacket;
 Model.RR=RR;
+Model.tmax=tmax;
+Model.DataRate=DataRate;
 
 end

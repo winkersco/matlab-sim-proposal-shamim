@@ -13,6 +13,7 @@ EmptySensor.id=0;
 EmptySensor.dis2sink=0;
 EmptySensor.dis2ch=0;
 EmptySensor.MCH=n+1;    %Member of CH
+EmptySensor.DataRate=0;
 
 %% Configuration Sensors
 Sensors=repmat(EmptySensor,n+1,1);
@@ -33,6 +34,8 @@ for i=1:1:n
     %id
     Sensors(i).id=i;
     %Sensors(i).RR=Model.RR;
+    %all nodes have Data Rate
+    Sensors(i).DataRate=Model.DataRate;
     
 end 
 
