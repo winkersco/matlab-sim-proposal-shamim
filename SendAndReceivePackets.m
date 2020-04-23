@@ -6,7 +6,7 @@ function SendAndReceivePackets(Sensors,Model,PacketType,t)
    n=Model.n;
    
    for i=1:n
-       if (mod(Sensors(i).DataRate,t)==0)
+       if (mod(t,Sensors(i).DataRate)==0)
            % Sent a packet
            sap=sap+1;
        end
