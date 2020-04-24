@@ -52,7 +52,7 @@ rdp=0;          %counter number of receive data packets
 %% Main loop program
 for t=1:1:Model.tmax
     
-    SendAndReceivePackets(Sensors,Model,'Data',t);
+     NodeNeighbors=SendAndReceivePackets(Sensors,Model,'Data',t,Neighbors);
     
 end
 
