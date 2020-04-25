@@ -1,10 +1,10 @@
-function [ nextHop ] = SelectNextHop( Sender, Model, Neighbors )
+function [ nextHop ] = SelectNextHop( Sender, Model, Neighbors, Sensors )
 %   SELECTNEXTHOP Summary of this function goes here
 %   Detailed explanation goes here
     n=Model.n;
     candidates = [];
     for j=1:n
-        if (Neighbors(Sender,j)==1)
+        if (Neighbors(Sender,j)==1 && Sensors(j).E>0)
             candidates=[candidates, j];
         end
     end

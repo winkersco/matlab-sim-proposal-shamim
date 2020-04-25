@@ -16,14 +16,14 @@ function Send=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbors)
    for i=1:n
        if (mod(t,Sensors(i).DataRate)==0)
             if(Sensors(i).E>0)
-               nextHop = SelectNextHop(i,Model, Neighbors)
+               nextHop = SelectNextHop(i,Model, Neighbors, Sensors)
                % Sent a packet if have any neighbors
                if (nextHop ~= -1)
                    Send(i,nextHop)=1;
                    sap=sap+1;
                    Sensors(i).E=Sensors(i).E- ...
                        (Model.ETX*PacketSize + Model.Efs*PacketSize);
-                   Sensors(i).T=Sensors(i).T+(PacketSize*0.0001);
+                   Sensors(i).T=Sensors(i).T+(PacketSize*Model.Ts);
                end
             end
        end
@@ -38,15 +38,15 @@ function Send=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbors)
                     rap=rap+1;
                     Sensors(j).E =Sensors(j).E- ...
                         ((Model.ERX + Model.EDA)*PacketSize);
-                    Sensors(j).T=Sensors(j).T+(PacketSize*0.0001);
+                    Sensors(j).T=Sensors(j).T+(PacketSize*Model.Tr);
                 end
            end
        end
    end
    
-   % Energy management
+   % Thermal management
    for i=1:n
-       Sensors(i).T=Sensors(i).T-0.0001;
+       Sensors(i).T=Sensors(i).T-Model.Tc;
    end
    
    if (strcmp(PacketType,'Data'))

@@ -56,6 +56,15 @@ DataRate=5;
 
 %Initial Thermal 
 To=2;
+
+%cool Thermal 
+Tc=0.0001;
+
+%send Thermal 
+Ts=0.0001;
+
+%Receive Thermal 
+Tr=0.0001;
 %%%%%%%%%%%%%%%%%%%%%%%%% END OF PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Save in Model %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -78,5 +87,8 @@ Model.RR=RR;
 Model.tmax=tmax;
 Model.DataRate=DataRate;
 Model.To=To;
+Model.Tc=Tc;
+Model.Ts=Ts;
+Model.Tr=Tr;
 
 end
