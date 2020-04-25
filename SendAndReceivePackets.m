@@ -14,6 +14,7 @@ function Send=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbors)
    
    %Sender for a send Packet
    for i=1:n
+       Sensors(i).T=Sensors(i).T-0.0001;
        if (mod(t,Sensors(i).DataRate)==0)
             Sensors(i).E=Sensors(i).E- ...
                     (Model.ETX*PacketSize + Model.Efs*PacketSize);
@@ -36,18 +37,12 @@ function Send=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbors)
                Sensors(j).E =Sensors(j).E- ...
                     ((Model.ERX + Model.EDA)*PacketSize);
                Sensors(j).T=Sensors(j).T+(PacketSize*0.0001);
+               %Received a Packet
+                if(Sensors(i).E>0 && Sensors(j).E>0)
+                    rap=rap+1;
+                end
            end
        end
-   end
-   
-   for i=1:n
-       for j=1:n
-
-            %Received a Packet
-            if(Sensors(i).E>0 && Sensors(j).E>0)
-                rap=rap+1;
-            end
-       end 
    end
    
    if (strcmp(PacketType,'Data'))
