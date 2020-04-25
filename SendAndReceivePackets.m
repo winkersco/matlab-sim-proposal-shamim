@@ -1,4 +1,4 @@
-function NodeNeighbors=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbors)
+function SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbors)
   
    global srp sdp
    sap=0;      % Send a packet
@@ -7,14 +7,11 @@ function NodeNeighbors=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbor
    
    for i=1:n
        if (mod(t,Sensors(i).DataRate)==0)
-           NodeNeighbors=[];
-           for j=1:n
-               if (Neighbors(i,j)==1)
-                    NodeNeighbors=[NodeNeighbors,Sensors(j).id];
-               end
+           nextHop = SelectNextHop(i,Model, Neighbors)
+           % Sent a packet if have any neighbors
+           if (nextHop ~= -1)
+               sap=sap+1;
            end
-               % Sent a packet
-                   sap=sap+1;
        end
    end
    
