@@ -53,6 +53,9 @@ tmax=500;
 
 %Data Rate
 DataRate=5;
+
+%Initial Thermal 
+To=2;
 %%%%%%%%%%%%%%%%%%%%%%%%% END OF PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Save in Model %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -74,5 +77,6 @@ Model.NumPacket=NumPacket;
 Model.RR=RR;
 Model.tmax=tmax;
 Model.DataRate=DataRate;
+Model.To=To;
 
 end
