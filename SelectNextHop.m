@@ -3,10 +3,10 @@ function [ nextHop,Q ] = SelectNextHop( Sender, Model, Neighbors, Sensors, Q)
 %   Detailed explanation goes here
     n=Model.n;
     %candidates = [];
-    reward=ones(n,n);
+    reward=randi(n,n);
     for j=1:n
         if (Neighbors(Sender,j)==1 && Sensors(j).E>0)
-            Q(Sender,j)=Q(Sender,j) + Model.Lr(reward(Sender,j));
+            Q(Sender,j)=Q(Sender,j) + Model.Lr*(reward(Sender,j));
             %candidates=[candidates, j];
         end
     end
