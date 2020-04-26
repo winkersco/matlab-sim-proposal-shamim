@@ -1,29 +1,29 @@
-function [ nextHop,Q ] = SelectNextHop( Sender, Model, Neighbors, Sensors, Q)
+function [ nextHop,Q ] = SelectNextHop( Sender, Model, Neighbors, Sensors, Q, reward)
 %   SELECTNEXTHOP Summary of this function goes here
 %   Detailed explanation goes here
     n=Model.n;
-    %candidates = [];
-    reward=randi(n,n);
+    candidates = [];
     for j=1:n
         if (Neighbors(Sender,j)==1 && Sensors(j).E>0)
             Q(Sender,j)=Q(Sender,j) + Model.Lr*(reward(Sender,j));
             %candidates=[candidates, j];
         end
     end
-    [Qmax,idx]=max(Q);
-    for i=1:n
-        if (Qmax(j)==0)
-            nextHop=-1;
-        else
-            nextHop=idx(j);
+    
+    for j=1:n
+        if (Q(Sender,j)~=0 && Sensors(j).E>0)
+             candidates=[candidates, Q(Sender,j)]
         end
     end
     
-    %if (isempty(candidates))
-        %nextHop = -1;
-    %else
+    
+     if(isempty(candidates))
+        nextHop = -1;
+     else
+        item=sort(candidates,'descend')
+        nextHop=item(1);
         %randomIndex = randi(length(candidates), 1);
         %nextHop = candidates(1,randomIndex);
-    %end
+    end
 end
 
