@@ -4,8 +4,8 @@ function [Area,Model]=setParameters(n)
 %	0918 546 2272
 %%%%%%%%%%%%%%%%%%%%%%%%% Set Inital PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%
 %Field Dimensions - x and y maximum (in meters)
-Area.x=n;
-Area.y=n;
+Area.x=100;
+Area.y=100;
 
 %Sink Motion pattern 
 Sinkx=0.5*Area.x;
@@ -65,6 +65,12 @@ Ts=0.0001;
 
 %Receive Thermal 
 Tr=0.0001;
+
+%learning rate 
+Lr=0.5;
+
+%Discount rate 
+Dr=0.5;
 %%%%%%%%%%%%%%%%%%%%%%%%% END OF PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Save in Model %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -90,5 +96,7 @@ Model.To=To;
 Model.Tc=Tc;
 Model.Ts=Ts;
 Model.Tr=Tr;
+Model.Lr=Lr;
+Model.Dr=Dr;
 
 end

@@ -10,7 +10,7 @@ tic;
 
 %% Create sensor nodes, Set Parameters and Create Energy Model 
 %%%%%%%%%%%%%%%%%%%%%%%%% Initial Parameters %%%%%%%%%%%%%%%%%%%%%%%
-n=100;                                  %Number of Nodes in the field
+n=10;                                  %Number of Nodes in the field
 [Area,Model]=setParameters(n);     		%Set Parameters Sensors and Network
 
 %%%%%%%%%%%%%%%%%%%%%%%%% configuration Sensors %%%%%%%%%%%%%%%%%%%%
@@ -19,8 +19,7 @@ load Locations                          %Load sensor Location
 Sensors=ConfigureSensors(Model,n,X,Y);
 ploter(Sensors,Model);                  %Plot sensors
 
-%%create Q-learning%%
-Q=zeros(n,n);
+%%find Neighbors%%
 Neighbors=findNeighbors(Model,Sensors);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% Parameters initialization %%%%%%%%%%%%%%%%
@@ -49,7 +48,7 @@ rrp=0;          %counter number of receive routing packets
 sdp=0;          %counter number of sent data packets 
 rdp=0;          %counter number of receive data packets 
 
-%% Main loop program
+%% Main loop program for start Q-learning
 for t=1:1:Model.tmax
     
      Send=SendAndReceivePackets(Sensors,Model,'Data',t,Neighbors);

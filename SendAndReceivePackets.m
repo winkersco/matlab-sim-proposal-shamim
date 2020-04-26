@@ -16,7 +16,7 @@ function Send=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbors)
    for i=1:n
        if (mod(t,Sensors(i).DataRate)==0)
             if(Sensors(i).E>0)
-               nextHop = SelectNextHop(i,Model, Neighbors, Sensors)
+               [nextHop,Q] = SelectNextHop(i,Model, Neighbors, Sensors)
                % Sent a packet if have any neighbors
                if (nextHop ~= -1)
                    Send(i,nextHop)=1;
