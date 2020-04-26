@@ -51,7 +51,7 @@ rdp=0;          %counter number of receive data packets
 %% Main loop program for start Q-learning
 for t=1:1:Model.tmax
     
-     Send=SendAndReceivePackets(Sensors,Model,'Data',t,Neighbors);
+     [Send,Q]=SendAndReceivePackets(Sensors,Model,'Data',t,Neighbors);
     
 end
 
