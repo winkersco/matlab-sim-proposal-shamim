@@ -12,7 +12,9 @@ function [ nextHop,Q ] = SelectNextHop( Sender, Model, Neighbors, Sensors, Q, re
     
     for j=1:n
         if (Q(Sender,j)~=0 && Sensors(j).E>0)
-             candidates=[candidates, Q(Sender,j)]
+             Candidate.id = j;
+             Candidate.q = Q(Sender,j);
+             candidates=[candidates, Candidate];
         end
     end
     
@@ -20,8 +22,9 @@ function [ nextHop,Q ] = SelectNextHop( Sender, Model, Neighbors, Sensors, Q, re
      if(isempty(candidates))
         nextHop = -1;
      else
-        item=sort(candidates,'descend')
-        nextHop=item(1);
+        candidates = struct2table(candidates);
+        candidates= sortrows(candidates,'q','descend');
+        nextHop=candidates(1,'id');
         %randomIndex = randi(length(candidates), 1);
         %nextHop = candidates(1,randomIndex);
     end
