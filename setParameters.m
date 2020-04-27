@@ -67,10 +67,10 @@ Ts=0.0001;
 Tr=0.0001;
 
 %learning rate 
-Lr=0.5;
+alpha=0.5;
 
 %Discount rate 
-Dr=0.5;
+gamma=0.5;
 %%%%%%%%%%%%%%%%%%%%%%%%% END OF PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Save in Model %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -96,7 +96,7 @@ Model.To=To;
 Model.Tc=Tc;
 Model.Ts=Ts;
 Model.Tr=Tr;
-Model.Lr=Lr;
-Model.Dr=Dr;
+Model.alpha=alpha;
+Model.gamma=gamma;
 
 end
