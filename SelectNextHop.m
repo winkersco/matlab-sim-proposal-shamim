@@ -1,6 +1,7 @@
-function [ nextHop,Q ] = SelectNextHop( Sender, Model, Neighbors, Sensors, Q)
+function [ nextHop] = SelectNextHop( Sender, Model, Neighbors, Sensors)
 %   SELECTNEXTHOP Summary of this function goes here
 %   Detailed explanation goes here
+    global Q
     n=Model.n;
     candidates = [];
     for j=1:n

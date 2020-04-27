@@ -1,8 +1,9 @@
-function [Send,Q]=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbors)
+function [Send]=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbors)
   
-   global srp rrp sdp rdp
+   global srp rrp sdp rdp sapv rapv
    sap=0;      % Send a packet
    rap=0;      % Receive a packet
+   
    if (strcmp(PacketType,'Data'))
        PacketSize=Model.DpacketLen;
    else
@@ -11,16 +12,13 @@ function [Send,Q]=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbors)
    
    n=Model.n;
    Send=zeros(n,n);
-   Q=zeros(n,n);
-   sapv=zeros(n,n);
-   rapv=zeros(n,n);
    %reward=randi(n,n);
    
    %Sender for a send Packet
    for i=1:n
        if (mod(t,Sensors(i).DataRate)==0)
             if(Sensors(i).E>0)
-               [nextHop,Q] = SelectNextHop(i,Model, Neighbors, Sensors, Q);
+               [nextHop] = SelectNextHop(i,Model, Neighbors, Sensors);
                % Sent a packet if have any neighbors
                if (nextHop ~= -1)
                    Send(i,nextHop)=1;
