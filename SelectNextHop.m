@@ -24,7 +24,8 @@ function [ nextHop,Q ] = SelectNextHop( Sender, Model, Neighbors, Sensors, Q, re
      else
         candidates = struct2table(candidates);
         candidates= sortrows(candidates,'q','descend');
-        nextHop=candidates(1,'id');
+        candidates = table2struct(candidates);
+        nextHop=candidates(1).id;
         %randomIndex = randi(length(candidates), 1);
         %nextHop = candidates(1,randomIndex);
     end
