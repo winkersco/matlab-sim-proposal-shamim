@@ -47,7 +47,7 @@ srp=0;          %counter number of sent routing packets
 rrp=0;          %counter number of receive routing packets
 sdp=0;          %counter number of sent data packets 
 rdp=0;          %counter number of receive data packets 
-sapv=zeros(n,1);
+sapv=zeros(1,n);
 rapv=zeros(1,n);
 Q=zeros(n,n);
 
