@@ -6,8 +6,9 @@ function reward=calculateReward(Receiver)
     else
         Trust=(sapv(Receiver.id)/((sapv(Receiver.id)+rapv(Receiver.id))))*10;
     end
-    E=Receiver.E;
-    T=Receiver.T;
-    reward=E-T+Trust;
+    disp(Trust);
+    E=Receiver.E
+    T=Receiver.T
+    reward=E-T+Trust
 
 end
