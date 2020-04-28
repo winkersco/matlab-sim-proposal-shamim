@@ -4,8 +4,8 @@ function [Area,Model]=setParameters(n)
 %	0918 546 2272
 %%%%%%%%%%%%%%%%%%%%%%%%% Set Inital PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%
 %Field Dimensions - x and y maximum (in meters)
-Area.x=100;
-Area.y=100;
+Area.x=10;
+Area.y=10;
 
 %Sink Motion pattern 
 Sinkx=0.5*Area.x;
