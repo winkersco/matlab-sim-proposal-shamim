@@ -12,6 +12,7 @@ function [Send,Sensors]=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbo
    
    n=Model.n;
    Send=zeros(n,n);
+   A=[];
    %reward=randi(n,n);
    
    %Sender for a send Packet
@@ -43,6 +44,8 @@ function [Send,Sensors]=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbo
                     Sensors(j).E =Sensors(j).E- ...
                         ((Model.ERX + Model.EDA)*PacketSize);
                     Sensors(j).T=Sensors(j).T+(PacketSize*Model.Tr);
+                    A=find(Sensors(j).Buffer==0);
+                    Sensors(j).Buffer(A(1))=PacketSize;
                 end
            end
        end

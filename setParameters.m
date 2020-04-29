@@ -71,6 +71,9 @@ alpha=0.5;
 
 %Discount rate 
 gamma=0.5;
+
+%Buffer Length 
+BufferLength=32;
 %%%%%%%%%%%%%%%%%%%%%%%%% END OF PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Save in Model %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -98,5 +101,6 @@ Model.Ts=Ts;
 Model.Tr=Tr;
 Model.alpha=alpha;
 Model.gamma=gamma;
+Model.BufferLength=BufferLength;
 
 end
