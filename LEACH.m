@@ -42,7 +42,7 @@ CLUSTERHS=zeros(1,Model.tmax);
 AllSensorEnergy=zeros(1,Model.tmax);
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Start Simulation %%%%%%%%%%%%%%%%%%%%%%%%%
-global srp rrp sdp rdp sapv rapv Q
+global srp rrp sdp rdp sapv rapv Q 
 srp=0;          %counter number of sent routing packets
 rrp=0;          %counter number of receive routing packets
 sdp=0;          %counter number of sent data packets 
@@ -54,7 +54,7 @@ Q=zeros(n,n);
 %% Main loop program for start Q-learning
 for t=1:1:Model.tmax
     
-     [Send]=SendAndReceivePackets(Sensors,Model,'Data',t,Neighbors);
+     [Send,Sensors]=SendAndReceivePackets(Sensors,Model,'Data',t,Neighbors);
     
 end
 

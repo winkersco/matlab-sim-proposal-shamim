@@ -1,4 +1,4 @@
-function [Send]=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbors)
+function [Send,Sensors]=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbors)
   
    global srp rrp sdp rdp sapv rapv
    sap=0;      % Send a packet
