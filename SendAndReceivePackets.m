@@ -28,8 +28,25 @@ function [Send,Sensors]=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbo
                    Sensors(i).E=Sensors(i).E- ...
                        (Model.ETX*PacketSize + Model.Efs*PacketSize);
                    Sensors(i).T=Sensors(i).T+(PacketSize*Model.Ts);
+                    
                end
             end
+       end
+       for b=1:length(Sensors(i).Buffer)
+           if (Sensors(i).E>0 && Sensors(i).Buffer(b)~=0)
+               [nextHop] = SelectNextHop(i,Model, Neighbors, Sensors);
+               % Sent a packet if have any neighbors
+               if (nextHop ~= -1)
+                   Send(i,nextHop)=1;
+                   sap=sap+1;
+                   sapv(i)=sapv(i)+1;
+                   Sensors(i).E=Sensors(i).E- ...
+                       (Model.ETX*PacketSize + Model.Efs*PacketSize);
+                   Sensors(i).T=Sensors(i).T+(PacketSize*Model.Ts);
+                    Sensors(i).Buffer(b)=0;
+                    
+               end
+           end
        end
    end
    

@@ -49,7 +49,7 @@ NumPacket=10;
 RR=0.5*Area.x*sqrt(2);
 
 %maximum time
-tmax=5;
+tmax=6;
 
 %Data Rate
 DataRate=5;
