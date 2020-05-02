@@ -10,7 +10,7 @@ tic;
 
 %% Create sensor nodes, Set Parameters and Create Energy Model 
 %%%%%%%%%%%%%%%%%%%%%%%%% Initial Parameters %%%%%%%%%%%%%%%%%%%%%%%
-n=100;                                  %Number of Nodes in the field
+n=5;                                  %Number of Nodes in the field
 [Area,Model]=setParameters(n);     		%Set Parameters Sensors and Network
 
 %%%%%%%%%%%%%%%%%%%%%%%%% configuration Sensors %%%%%%%%%%%%%%%%%%%%
@@ -19,8 +19,7 @@ load Locations                          %Load sensor Location
 Sensors=ConfigureSensors(Model,n,X,Y);
 ploter(Sensors,Model);                  %Plot sensors
 
-%%create Q-learning%%
-Q=zeros(n,n);
+%%find Neighbors%%
 Neighbors=findNeighbors(Model,Sensors);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% Parameters initialization %%%%%%%%%%%%%%%%
@@ -33,21 +32,31 @@ for i=1:n
       initEnergy=Sensors(i).E+initEnergy;
 end
 
-SRP=zeros(1,Model.rmax);    %number of sent routing packets
-RRP=zeros(1,Model.rmax);    %number of receive routing packets
-SDP=zeros(1,Model.rmax);    %number of sent data packets 
-RDP=zeros(1,Model.rmax);    %number of receive data packets 
+SRP=zeros(1,Model.tmax);    %number of sent routing packets
+RRP=zeros(1,Model.tmax);    %number of receive routing packets
+SDP=zeros(1,Model.tmax);    %number of sent data packets 
+RDP=zeros(1,Model.tmax);    %number of receive data packets 
 
-Sum_DEAD=zeros(1,Model.rmax);
-CLUSTERHS=zeros(1,Model.rmax);
-AllSensorEnergy=zeros(1,Model.rmax);
+Sum_DEAD=zeros(1,Model.tmax);
+CLUSTERHS=zeros(1,Model.tmax);
+AllSensorEnergy=zeros(1,Model.tmax);
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Start Simulation %%%%%%%%%%%%%%%%%%%%%%%%%
-global srp rrp sdp rdp
+global srp rrp sdp rdp sapv rapv Q 
 srp=0;          %counter number of sent routing packets
 rrp=0;          %counter number of receive routing packets
 sdp=0;          %counter number of sent data packets 
 rdp=0;          %counter number of receive data packets 
+sapv=zeros(1,n);
+rapv=zeros(1,n);
+Q=zeros(n,n);
+
+%% Main loop program for start Q-learning
+for t=1:1:Model.tmax
+    
+     [Send,Sensors]=SendAndReceivePackets(Sensors,Model,'Data',t,Neighbors);
+    
+end
 
 %Sink broadcast start message to all nodes
 Sender=n+1;     %Sink

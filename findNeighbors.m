@@ -26,6 +26,6 @@ D=zeros(n,n);
 
 
  end
-
+  
 
 end

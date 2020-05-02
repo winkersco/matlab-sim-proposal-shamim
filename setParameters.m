@@ -4,8 +4,8 @@ function [Area,Model]=setParameters(n)
 %	0918 546 2272
 %%%%%%%%%%%%%%%%%%%%%%%%% Set Inital PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%
 %Field Dimensions - x and y maximum (in meters)
-Area.x=n;
-Area.y=n;
+Area.x=10;
+Area.y=10;
 
 %Sink Motion pattern 
 Sinkx=0.5*Area.x;
@@ -47,6 +47,33 @@ NumPacket=10;
 
 %Redio Range
 RR=0.5*Area.x*sqrt(2);
+
+%maximum time
+tmax=6;
+
+%Data Rate
+DataRate=5;
+
+%Initial Thermal 
+To=2;
+
+%cool Thermal 
+Tc=0.0001;
+
+%send Thermal 
+Ts=0.0001;
+
+%Receive Thermal 
+Tr=0.0001;
+
+%learning rate 
+alpha=0.5;
+
+%Discount rate 
+gamma=0.5;
+
+%Buffer Length 
+BufferLength=32;
 %%%%%%%%%%%%%%%%%%%%%%%%% END OF PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Save in Model %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -66,5 +93,14 @@ Model.DpacketLen=DpacketLen;
 Model.HpacketLen=HpacketLen;
 Model.NumPacket=NumPacket;
 Model.RR=RR;
+Model.tmax=tmax;
+Model.DataRate=DataRate;
+Model.To=To;
+Model.Tc=Tc;
+Model.Ts=Ts;
+Model.Tr=Tr;
+Model.alpha=alpha;
+Model.gamma=gamma;
+Model.BufferLength=BufferLength;
 
 end
