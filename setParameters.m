@@ -12,7 +12,7 @@ Sinkx=0.5*Area.x;
 Sinky=Sinkx;
 
 %Optimal Election Probability of a node to become cluster head
-p=0.1;
+%p=0.1;
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Energy Model (all values in Joules)%%%%%%%%%%%
 %Initial Energy 
@@ -30,11 +30,11 @@ Emp=0.0013*0.000000000001;
 EDA=5*0.000000001;
 
 %Computation of do
-do=sqrt(Efs/Emp);
+%do=sqrt(Efs/Emp);
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Run Time Parameters %%%%%%%%%%%%%%%%%%%%%%%%%
 %maximum number of rounds
-rmax=5000;
+%rmax=5000;
 
 %Data packet size
 DpacketLen=4000;
@@ -43,7 +43,7 @@ DpacketLen=4000;
 HpacketLen=100;
 
 %Number of Packets sended in steady-state phase
-NumPacket=10;
+%NumPacket=10;
 
 %Redio Range
 RR=0.5*Area.x*sqrt(2);
@@ -80,18 +80,18 @@ BufferLength=32;
 Model.n=n;
 Model.Sinkx=Sinkx;
 Model.Sinky=Sinky;
-Model.p=p;
+%Model.p=p;
 Model.Eo=Eo;
 Model.ETX=ETX;
 Model.ERX=ERX;
 Model.Efs=Efs;
 Model.Emp=Emp;
 Model.EDA=EDA;
-Model.do=do;
-Model.rmax=rmax;
+%Model.do=do;
+%Model.rmax=rmax;
 Model.DpacketLen=DpacketLen;
 Model.HpacketLen=HpacketLen;
-Model.NumPacket=NumPacket;
+%Model.NumPacket=NumPacket;
 Model.RR=RR;
 Model.tmax=tmax;
 Model.DataRate=DataRate;
