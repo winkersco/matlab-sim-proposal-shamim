@@ -86,6 +86,9 @@ for t=1:1:Model.tmax
         end  
     end
     
+    %%find numhop%%
+     dissink=distancetosink(Model,Sensors,Neighbors);
+    
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     [Send,Sensors]=SendAndReceivePackets(Sensors,Model,'Data',t,Neighbors);
     
