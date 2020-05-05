@@ -1,14 +1,11 @@
 function dissink=distancetosink(Model,Sensors,Neighbors)
 
     n=Model.n;
-    dissink=[];
+    dissink=zeros(1,n+1);
     
-    dissink(1)=-1;
-    dissink(2)=-1;
-    dissink(3)=-1;
-    dissink(4)=-1;
-    dissink(5)=-1;
-    dissink(n+1)=0;
+    for i=1:n
+        dissink(i)=-1;
+    end
     
     for i=n+1:-1:1
         for j=1:n+1

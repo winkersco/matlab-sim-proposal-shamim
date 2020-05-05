@@ -90,7 +90,7 @@ for t=1:1:Model.tmax
      dissink=distancetosink(Model,Sensors,Neighbors);
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    [Send,Sensors]=SendAndReceivePackets(Sensors,Model,'Data',t,Neighbors);
+    [Send,Sensors]=SendAndReceivePackets(Sensors,Model,'Data',t,Neighbors,dissink);
     
     %%%%%%%%%%%%%%%%%%%%%%% plot network status in end of set-up phase 
 
