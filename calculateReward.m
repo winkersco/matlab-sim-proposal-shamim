@@ -23,5 +23,6 @@ function reward=calculateReward(Receiver,dissink)
     disp(['Trust ',num2str(Trust)]);
     disp(['E ',num2str(E)]);
     disp(['T ',num2str(T)]);
+    disp(['Hop ',num2str(Hop)]);
     disp('---------');
 end
