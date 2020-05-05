@@ -7,7 +7,8 @@ function [ nextHop] = SelectNextHop( Sender, Model, Neighbors, Sensors, dissink)
     for j=1:n
         if (Neighbors(Sender,j)==1 && Sensors(j).E>0)
             reward=calculateReward(Sensors(j),dissink);
-            Q(Sender,j)=Q(Sender,j) + Model.alpha*reward;
+            nextQ=cauculatenextQ(Sensors(j),Model,Neighbors,Q);
+            Q(Sender,j)=Q(Sender,j) + Model.alpha*(reward+(Model.gamma*nextQ)-Q(Sender,j));
            % Q(Sender,j)=Q(Sender,j) + Model.Lr*(reward(Sender,j));
             %candidates=[candidates, j];
         end
