@@ -10,7 +10,7 @@ function dissink=distancetosink(Model,Sensors,Neighbors)
     for i=n+1:-1:1
         for j=1:n+1
             if (Neighbors(i,j)==1 && Sensors(j).E>0)
-                if(dissink(j)==-1 || dissink(j)>dissink(i)+1)
+                if(dissink(i)~=-1 && (dissink(j)==-1 || dissink(j)>dissink(i)+1))
                     dissink(j)=dissink(i)+1;
                 end
             end
