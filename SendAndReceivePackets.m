@@ -1,4 +1,4 @@
-function [Send,Sensors]=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbors)
+function [Send,Sensors]=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbors,dissink)
   
    global srp rrp sdp rdp sapv rapv
    sap=0;      % Send a packet
@@ -19,7 +19,7 @@ function [Send,Sensors]=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbo
    for i=1:n
        if (mod(t,Sensors(i).DataRate)==0)
             if(Sensors(i).E>0)
-               [nextHop] = SelectNextHop(i,Model, Neighbors, Sensors);
+               [nextHop] = SelectNextHop(i,Model, Neighbors, Sensors,dissink);
                % Sent a packet if have any neighbors
                if (nextHop ~= -1)
                    Send(i,nextHop)=1;
@@ -34,7 +34,7 @@ function [Send,Sensors]=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbo
        end
        for b=1:length(Sensors(i).Buffer)
            if (Sensors(i).E>0 && Sensors(i).Buffer(b)~=0)
-               [nextHop] = SelectNextHop(i,Model, Neighbors, Sensors);
+               [nextHop] = SelectNextHop(i,Model, Neighbors, Sensors,dissink);
                % Sent a packet if have any neighbors
                if (nextHop ~= -1)
                    Send(i,nextHop)=1;
