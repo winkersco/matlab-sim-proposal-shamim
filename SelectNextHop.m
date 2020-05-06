@@ -1,4 +1,4 @@
-function [ nextHop] = SelectNextHop( Sender, Model, Neighbors, Sensors)
+function [ nextHop] = SelectNextHop( Sender, Model, Neighbors, Sensors, dissink)
 %   SELECTNEXTHOP Summary of this function goes here
 %   Detailed explanation goes here
     global Q
@@ -6,8 +6,9 @@ function [ nextHop] = SelectNextHop( Sender, Model, Neighbors, Sensors)
     candidates = [];
     for j=1:n
         if (Neighbors(Sender,j)==1 && Sensors(j).E>0)
-            reward=calculateReward(Sensors(j));
-            Q(Sender,j)=Q(Sender,j) + Model.alpha*reward;
+            reward=calculateReward(Sensors(j),dissink);
+            nextQ=cauculatenextQ(Sensors(j),Model,Neighbors,Q);
+            Q(Sender,j)=Q(Sender,j) + Model.alpha*(reward+(Model.gamma*nextQ)-Q(Sender,j));
            % Q(Sender,j)=Q(Sender,j) + Model.Lr*(reward(Sender,j));
             %candidates=[candidates, j];
         end
