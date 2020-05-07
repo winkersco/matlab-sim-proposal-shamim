@@ -12,7 +12,7 @@ function nextQ = cauculatenextQ(Receiver, Model, Neighbors, Q)
     end
 
     if (isempty(nQs))
-        nextQ = -1;
+        nextQ = -1000;
     else
         nQs = sort(nQs, 'descend');
         nextQ = nQs(1);
