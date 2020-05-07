@@ -12,7 +12,7 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
 
     n = Model.n;
     Send = zeros(n, n);
-    Packets = zeros(n, n);
+    Packets = struct('PacketSize', {});
     A = [];
     %reward=randi(n,n);
 
