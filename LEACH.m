@@ -42,7 +42,7 @@ Sum_DEAD=zeros(1,Model.tmax);
 AllSensorEnergy=zeros(1,Model.tmax);
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Start Simulation %%%%%%%%%%%%%%%%%%%%%%%%%
-global srp rrp sdp rdp sapv rapv Q list
+global srp rrp sdp rdp sapv rapv Q
 srp=0;          %counter number of sent routing packets
 rrp=0;          %counter number of receive routing packets
 sdp=0;          %counter number of sent data packets 
@@ -50,7 +50,6 @@ rdp=0;          %counter number of receive data packets
 sapv=zeros(1,n); %counter number of sent data packets for nodes
 rapv=zeros(1,n); %counter number of receive data packets for nodes
 Q=zeros(n,n);   %counter number of Q for nodes
-list=zeros(1,n); %counter seen nodes
 
 %Save metrics
 SRP(1)=srp;
@@ -91,7 +90,7 @@ for t=1:1:Model.tmax
      dissink=distancetosink(Model,Sensors,Neighbors);
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    [Send,Sensors]=SendAndReceivePackets(Sensors,Model,'Data',t,Neighbors,dissink);
+    [Send,Sensors,Packets]=SendAndReceivePackets(Sensors,Model,'Data',t,Neighbors,dissink);
     
     %%%%%%%%%%%%%%%%%%%%%%% plot network status in end of set-up phase 
 

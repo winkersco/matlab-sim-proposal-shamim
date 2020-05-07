@@ -1,6 +1,6 @@
-function [Send,Sensors]=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbors,dissink)
+function [Send,Sensors,Packets]=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbors,dissink)
   
-   global srp rrp sdp rdp sapv rapv list
+   global srp rrp sdp rdp sapv rapv
    sap=0;      % Send a packet
    rap=0;      % Receive a packet
    
@@ -12,6 +12,7 @@ function [Send,Sensors]=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbo
    
    n=Model.n;
    Send=zeros(n,n);
+   Packets=zeros(n,n);
    A=[];
    %reward=randi(n,n);
    
@@ -19,13 +20,14 @@ function [Send,Sensors]=SendAndReceivePackets(Sensors,Model,PacketType,t,Neighbo
    for i=1:n
        if (mod(t,Sensors(i).DataRate)==0)
             if(Sensors(i).E>0)
-               [nextHop] = SelectNextHop(i,Model, Neighbors, Sensors,dissink,list);
+               [nextHop] = SelectNextHop(i,Model, Neighbors, Sensors,dissink);
                % Sent a packet if have any neighbors
                if (nextHop ~= -1)
+                   Packet=ConfigurePaket('Data',Model);
+                   Packets(i,nextHop)=Packet;
                    Send(i,nextHop)=1;
                    sap=sap+1;
                    sapv(i)=sapv(i)+1;
-                   list(i)=1;
                    Sensors(i).E=Sensors(i).E- ...
                        (Model.ETX*PacketSize + Model.Efs*PacketSize);
                    Sensors(i).T=Sensors(i).T+(PacketSize*Model.Ts);

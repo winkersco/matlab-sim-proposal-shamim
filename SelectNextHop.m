@@ -1,4 +1,4 @@
-function [ nextHop] = SelectNextHop( Sender, Model, Neighbors, Sensors, dissink,list)
+function [ nextHop] = SelectNextHop( Sender, Model, Neighbors, Sensors, dissink)
 %   SELECTNEXTHOP Summary of this function goes here
 %   Detailed explanation goes here
     global Q
@@ -15,7 +15,7 @@ function [ nextHop] = SelectNextHop( Sender, Model, Neighbors, Sensors, dissink,
     end
     
     for j=1:n
-        if (Q(Sender,j)~=0 && Sensors(j).E>0 && list(j)==0)
+        if (Q(Sender,j)~=0 && Sensors(j).E>0)
              Candidate.id = j;
              Candidate.q = Q(Sender,j);
              candidates=[candidates, Candidate];
