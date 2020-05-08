@@ -49,8 +49,8 @@ rrp = 0; %counter number of receive routing packets
 sdp = 0; %counter number of sent data packets
 rdp = 0; %counter number of receive data packets
 sapv = zeros(1, n); %counter number of sent data packets for nodes
-rapv = zeros(1, n); %counter number of receive data packets for nodes
-Q = zeros(n, n+1); %counter number of Q for nodes
+rapv = zeros(1, n+1); %counter number of receive data packets for nodes
+Q = zeros(n, n); %counter number of Q for nodes
 
 %Save metrics
 SRP(1) = srp;

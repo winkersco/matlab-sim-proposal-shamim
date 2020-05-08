@@ -17,14 +17,8 @@ function [nextHop] = SelectNextHop(Sender, Model, Neighbors, Sensors, dissink)
         end
 
     end
-    
-    if (Neighbors(Sender,n+1)==1)
-        
-        Q(Sender,n+1)=5000;
-        
-    end
 
-    for j = 1:n+1
+    for j = 1:n
 
         if (Q(Sender, j) ~= 0 && Sensors(j).E > 0)
             Candidate.id = j;

@@ -22,7 +22,12 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
         if (mod(t, Sensors(i).DataRate) == 0)
 
             if (Sensors(i).E > 0)
-                [nextHop] = SelectNextHop(i, Model, Neighbors, Sensors, dissink);
+                
+                if (Neighbors(i,n+1)==1)
+                    nextHop=n+1;
+                else
+                    [nextHop] = SelectNextHop(i, Model, Neighbors, Sensors, dissink);
+                end
                 % Sent a packet if have any neighbors
                 if (nextHop ~= -1)
                     Packet = ConfigurePaket('Data', Model);
@@ -42,7 +47,11 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
         for b = 1:length(Sensors(i).Buffer)
 
             if (Sensors(i).E > 0 && Sensors(i).Buffer(b) ~= 0)
-                [nextHop] = SelectNextHop(i, Model, Neighbors, Sensors, dissink);
+                if (Neighbors(i,n+1)==1)
+                    nextHop=n+1;
+                else
+                    [nextHop] = SelectNextHop(i, Model, Neighbors, Sensors, dissink);
+                end
                 % Sent a packet if have any neighbors
                 if (nextHop ~= -1)
                     Send(i, nextHop) = 1;
@@ -62,7 +71,12 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
 
     %Receiver for Receive Packet
     for i = 1:n
-
+        
+      if (Send(i,n+1)==1 && Sensors(i).E > 0)
+            rap = rap + 1;
+            rapv(n+1) = rapv(n+1) + 1;
+      else
+          
         for j = 1:n
 
             if (Send(i, j) == 1)
@@ -80,6 +94,7 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
             end
 
         end
+     end
 
     end
 
