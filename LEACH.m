@@ -109,7 +109,7 @@ for t = 1:1:Model.tmax
                     XL = [Sensors(i).xd, Sensors(j).xd];
                     YL = [Sensors(i).yd, Sensors(j).yd];
                     hold on
-                    drawArrow(XL,YL,{'LineWidth',3});
+                    quiver( XL(1),YL(1),XL(2)-XL(1),YL(2)-YL(1),0 ,'MaxHeadSize',0.5);
                 end
 
             end
