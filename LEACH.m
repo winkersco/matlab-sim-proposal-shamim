@@ -109,7 +109,7 @@ for t = 1:1:Model.tmax
                     XL = [Sensors(i).xd, Sensors(j).xd];
                     YL = [Sensors(i).yd, Sensors(j).yd];
                     hold on
-                    line(XL, YL)
+                    drawArrow(XL,YL,{'LineWidth',3});
                 end
 
             end
