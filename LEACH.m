@@ -117,10 +117,11 @@ for t = 1:1:Model.tmax
         end
 
     end
-    %print('-dpng', 'My-Figure.png');
     
-    picname=sprintf('My_Figure%d.png', t);
-    save(picname);
+    %% SAVE PIC
+    picname=sprintf('Figures/Figure_%d', t);
+    pictype='png';
+    saveas(gcf,picname,pictype);
 
     %% STATISTICS
 
