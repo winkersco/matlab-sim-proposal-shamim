@@ -12,7 +12,7 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
 
     n = Model.n;
     Send = zeros(n, n+1);
-    Packets = struct('PacketSize', {});
+    Packets = struct('PacketSize', {}, 'VisitedNodes', {});
     A = [];
     %reward=randi(n,n);
 
@@ -30,7 +30,7 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
                 end
                 % Sent a packet if have any neighbors
                 if (nextHop ~= -1)
-                    Packet = ConfigurePaket('Data', Model);
+                    Packet = ConfigurePaket('Data', Model, i, nextHop);
                     Packets(i, nextHop) = Packet;
                     Send(i, nextHop) = 1;
                     sap = sap + 1;
@@ -54,6 +54,7 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
                 end
                 % Sent a packet if have any neighbors
                 if (nextHop ~= -1)
+                    Packets(i, nextHop) = Packet;
                     Send(i, nextHop) = 1;
                     sap = sap + 1;
                     sapv(i) = sapv(i) + 1;
@@ -88,7 +89,7 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
                         ((Model.ERX + Model.EDA) * PacketSize);
                     Sensors(j).T = Sensors(j).T + (PacketSize * Model.Tr);
                     A = find(Sensors(j).Buffer == 0);
-                    Sensors(j).Buffer(A(1)) = PacketSize;
+                    Sensors(j).Buffer(A(1)) = Packet;
                 end
 
             end
