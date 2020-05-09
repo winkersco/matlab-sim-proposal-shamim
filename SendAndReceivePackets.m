@@ -89,7 +89,7 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
                         ((Model.ERX + Model.EDA) * PacketSize);
                     Sensors(j).T = Sensors(j).T + (PacketSize * Model.Tr);
                     A = find(Sensors(j).Buffer == 0);
-                    Sensors(j).Buffer(A(1)) = Packet;
+                    Sensors(j).Buffer(A(1)) = Packets(i,j);
                 end
 
             end
