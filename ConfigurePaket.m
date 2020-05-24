@@ -10,6 +10,5 @@ function Packet = ConfigurePaket(PacketType, Model, i, nextHop)
     end
     
    Packet.VisitedNodes(i)=1;
-   Packet.VisitedNodes(nextHop)=1;
 
 end
