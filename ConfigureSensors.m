@@ -15,8 +15,8 @@ function Sensors = ConfigureSensors(Model, n, GX, GY)
     EmptySensor.MCH = n + 1; %Member of CH
     EmptySensor.DataRate = 0;
     EmptySensor.T = 0;
-    EmptySensor.Buffer = 0;
-
+    EmptySensor.Buffer = cell(1, Model.BufferLength);
+    
     %% Configuration Sensors
     Sensors = repmat(EmptySensor, n + 1, 1);
 
@@ -41,8 +41,8 @@ function Sensors = ConfigureSensors(Model, n, GX, GY)
         %initially all nodes have equal Thermal
         Sensors(i).T = Model.To;
         %initially all nodes have equal Buffer Length
-        Sensors(i).Buffer = zeros(1, Model.BufferLength);
-
+        Sensors(i).Buffer = cell(1, Model.BufferLength);
+        
     end
 
     Sensors(n + 1).xd = Model.Sinkx;

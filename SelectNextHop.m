@@ -1,4 +1,4 @@
-function [nextHop] = SelectNextHop(Sender, Model, Neighbors, Sensors, dissink)
+function [nextHop] = SelectNextHop(Sender, Model, Neighbors, Sensors, dissink, b)
     %   SELECTNEXTHOP Summary of this function goes here
     %   Detailed explanation goes here
     global Q
@@ -19,13 +19,22 @@ function [nextHop] = SelectNextHop(Sender, Model, Neighbors, Sensors, dissink)
     end
 
     for j = 1:n
-
-        if (Q(Sender, j) ~= 0 && Sensors(j).E > 0)
+        flag = 0;
+        if (Q(Sender, j) ~= 0 && Sensors(j).E > 0 )
+            if(b == -1)
+                flag = 1;
+            else
+                Packet = Sensors(Sender).Buffer{b};
+                if(Packet.VisitedNodes(j) == 0)
+                    flag = 1;
+                end
+            end
+        end
+        if(flag)
             Candidate.id = j;
             Candidate.q = Q(Sender, j);
             candidates = [candidates, Candidate];
         end
-
     end
 
     if (isempty(candidates))
