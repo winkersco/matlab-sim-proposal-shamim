@@ -49,7 +49,7 @@ function [Area, Model] = setParameters(n)
     RR = 0.5 * Area.x * sqrt(2);
 
     %maximum time
-    tmax = 6;
+    tmax = 10;
 
     %Data Rate
     DataRate = 5;
@@ -74,6 +74,9 @@ function [Area, Model] = setParameters(n)
 
     %Buffer Length
     BufferLength = 32;
+    
+    %attacker
+    attacker = [0 1 0 1 0];
     %%%%%%%%%%%%%%%%%%%%%%%%% END OF PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%
 
     %%%%%%%%%%%%%%%%%%%%%%%%% Save in Model %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -102,5 +105,6 @@ function [Area, Model] = setParameters(n)
     Model.alpha = alpha;
     Model.gamma = gamma;
     Model.BufferLength = BufferLength;
+    Model.attacker=attacker;
 
 end

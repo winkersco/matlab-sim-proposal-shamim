@@ -18,6 +18,8 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
 
     %Sender for a send Packet
     for i = 1:n
+        %Blackhole attack
+        if (Model.attacker (i) == 0)
 
         if (mod(t, Sensors(i).DataRate) == 0)
 
@@ -66,6 +68,8 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
 
             end
 
+        end
+        
         end
 
     end

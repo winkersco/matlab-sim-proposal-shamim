@@ -9,8 +9,10 @@ function deadNum = ploter(Sensors, Model)
         %check dead node
         if (Sensors(i).E > 0)
 
-            if (Sensors(i).type == 'N')
+            if (Sensors(i).type == 'N' && Model.attacker(Sensors(i).id) == 0)
                 plot(Sensors(i).xd, Sensors(i).yd, 'o');
+            elseif (Sensors(i).type == 'N' && Model.attacker(Sensors(i).id) == 1) %Blackhole attacker
+                plot(Sensors(i).xd, Sensors(i).yd, 'kx', 'MarkerSize', 20);
             else %Sensors.type=='C'
                 plot(Sensors(i).xd, Sensors(i).yd, 'kx', 'MarkerSize', 10);
             end
