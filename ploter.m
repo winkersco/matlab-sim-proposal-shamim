@@ -12,7 +12,7 @@ function deadNum = ploter(Sensors, Model)
             if (Sensors(i).type == 'N' && Model.attacker(Sensors(i).id) == 0)
                 plot(Sensors(i).xd, Sensors(i).yd, 'o');
             elseif (Sensors(i).type == 'N' && Model.attacker(Sensors(i).id) == 1) %Blackhole attacker
-                plot(Sensors(i).xd, Sensors(i).yd, 'kx', 'MarkerSize', 20);
+                plot(Sensors(i).xd, Sensors(i).yd, 'ks', 'MarkerSize', 10, 'MarkerFaceColor', 'k');
             else %Sensors.type=='C'
                 plot(Sensors(i).xd, Sensors(i).yd, 'kx', 'MarkerSize', 10);
             end

@@ -18,8 +18,6 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
 
     %Sender for a send Packet
     for i = 1:n
-        %Blackhole attack
-        if (Model.attacker (i) == 0)
 
         if (mod(t, Sensors(i).DataRate) == 0)
 
@@ -31,7 +29,7 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
                     [nextHop] = SelectNextHop(i, Model, Neighbors, Sensors, dissink, -1);
                 end
                 % Sent a packet if have any neighbors
-                if (nextHop ~= -1)
+                if (nextHop ~= -1 && Model.attacker(i) == 0)
                     Packet = ConfigurePaket('Data', Model, i, nextHop);
                     Packets{i, nextHop} = Packet;
                     Send(i, nextHop) = 1;
@@ -55,7 +53,7 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
                     [nextHop] = SelectNextHop(i, Model, Neighbors, Sensors, dissink, b);
                 end
                 % Sent a packet if have any neighbors
-                if (nextHop ~= -1)
+                if (nextHop ~= -1 && Model.attacker(i) == 0)
                     Packets{i, nextHop} = Packet;
                     Send(i, nextHop) = 1;
                     sap = sap + 1;
@@ -68,8 +66,6 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
 
             end
 
-        end
-        
         end
 
     end
