@@ -109,7 +109,7 @@ for t = 1:1:Model.tmax
                     XL = [Sensors(i).xd, Sensors(j).xd];
                     YL = [Sensors(i).yd, Sensors(j).yd];
                     hold on
-                    line(XL, YL)
+                    quiver( XL(1),YL(1),XL(2)-XL(1),YL(2)-YL(1),0 ,'MaxHeadSize',0.5);
                 end
 
             end
@@ -117,6 +117,11 @@ for t = 1:1:Model.tmax
         end
 
     end
+    
+    %% SAVE PIC
+    picname=sprintf('Figures/Figure_%d', t);
+    pictype='png';
+    saveas(gcf,picname,pictype);
 
     %% STATISTICS
 
