@@ -75,8 +75,11 @@ function [Area, Model] = setParameters(n)
     %Buffer Length
     BufferLength = 32;
     
-    %attacker
-    attacker = [0 1 0 1 0];
+    %Blackhole_attacker
+    Blackhole_attacker = [0 1 0 0 0];
+    
+    %Grayhole_attacker
+    Grayhole_attacker = [0 0 0 1 0];
     %%%%%%%%%%%%%%%%%%%%%%%%% END OF PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%
 
     %%%%%%%%%%%%%%%%%%%%%%%%% Save in Model %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -105,6 +108,7 @@ function [Area, Model] = setParameters(n)
     Model.alpha = alpha;
     Model.gamma = gamma;
     Model.BufferLength = BufferLength;
-    Model.attacker=attacker;
+    Model.Blackhole_attacker = Blackhole_attacker;
+    Model.Grayhole_attacker = Grayhole_attacker;
 
 end
