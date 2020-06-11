@@ -80,6 +80,9 @@ function [Area, Model] = setParameters(n)
     
     %Grayhole_attacker
     Grayhole_attacker = [0 0 0 1 0];
+    
+    %grayhole possibility
+    P_grayhole=0.5;
     %%%%%%%%%%%%%%%%%%%%%%%%% END OF PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%
 
     %%%%%%%%%%%%%%%%%%%%%%%%% Save in Model %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -110,5 +113,6 @@ function [Area, Model] = setParameters(n)
     Model.BufferLength = BufferLength;
     Model.Blackhole_attacker = Blackhole_attacker;
     Model.Grayhole_attacker = Grayhole_attacker;
+    Model.P_grayhole = P_grayhole;
 
 end

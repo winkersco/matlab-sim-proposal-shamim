@@ -43,7 +43,7 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
                     
                 elseif (nextHop ~= -1 && Model.Blackhole_attacker(i) == 0  &&  Model.Grayhole_attacker(i) == 1)
                     
-                    if (p < 0.5)
+                    if (p < Model.P_grayhole)
                         Packet = ConfigurePaket('Data', Model, i, nextHop);
                         Packets{i, nextHop} = Packet;
                         Send(i, nextHop) = 1;
@@ -81,7 +81,7 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
                     
                 elseif (nextHop ~= -1 && Model.Blackhole_attacker(i) == 0  &&  Model.Grayhole_attacker(i) == 1)
                     
-                        if (p < 0.5)
+                        if (p < Model.P_grayhole)
                             
                             Packets{i, nextHop} = Packet;
                             Send(i, nextHop) = 1;
