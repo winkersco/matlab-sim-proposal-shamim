@@ -4,8 +4,18 @@ function reward = calculateReward(Receiver, dissink)
 
     if (sapv(Receiver.id) == 0 && rapv(Receiver.id) == 0)
         Trust = 0;
+    elseif (sapv(Receiver.id) <= rapv(Receiver.id))
+        sr = sapv(Receiver.id)/rapv(Receiver.id)
+        rate = exp(sr)
+        Trust = ((sapv(Receiver.id) + (0.5 * rate)) / (sapv(Receiver.id) + rate + rapv(Receiver.id))*10);
     else
-        Trust = (sapv(Receiver.id) / ((sapv(Receiver.id) + rapv(Receiver.id)))) * 10;
+        if (rapv(Receiver.id) == 0)
+            sr = sapv(Receiver.id)
+        else
+            sr = sapv(Receiver.id)/rapv(Receiver.id)
+        end
+        rate = exp(sr)
+        Trust = (10 - ((sapv(Receiver.id) + (0.5 * rate)) / (sapv(Receiver.id) + rate + rapv(Receiver.id))*10));
     end
 
     if dissink(Receiver.id) == -1
