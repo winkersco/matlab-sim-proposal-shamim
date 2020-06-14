@@ -19,6 +19,8 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
     %Sender for a send Packet
     for i = 1:n
 
+        p = rand(1,1);
+        
         if (mod(t, Sensors(i).DataRate) == 0)
 
             if (Sensors(i).E > 0)
@@ -29,7 +31,9 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
                     [nextHop] = SelectNextHop(i, Model, Neighbors, Sensors, dissink, -1);
                 end
                 % Sent a packet if have any neighbors
-                if (nextHop ~= -1 && Model.attacker(i) == 0)
+
+                if (nextHop ~= -1 && Model.Blackhole_attacker(i) == 0  &&  Model.Grayhole_attacker(i) == 0)
+
                     Packet = ConfigurePaket('Data', Model, i, nextHop);
                     Packets{i, nextHop} = Packet;
                     Send(i, nextHop) = 1;
@@ -38,6 +42,20 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
                     Sensors(i).E = Sensors(i).E - ...
                         (Model.ETX * PacketSize + Model.Efs * PacketSize);
                     Sensors(i).T = Sensors(i).T + (PacketSize * Model.Ts);
+                    
+                elseif (nextHop ~= -1 && Model.Blackhole_attacker(i) == 0  &&  Model.Grayhole_attacker(i) == 1)
+                    
+                    if (p < Model.P_grayhole)
+                        Packet = ConfigurePaket('Data', Model, i, nextHop);
+                        Packets{i, nextHop} = Packet;
+                        Send(i, nextHop) = 1;
+                        sap = sap + 1;
+                        sapv(i) = sapv(i) + 1;
+                        Sensors(i).E = Sensors(i).E - ...
+                            (Model.ETX * PacketSize + Model.Efs * PacketSize);
+                        Sensors(i).T = Sensors(i).T + (PacketSize * Model.Ts);
+                    end
+                    
                 end
 
             end
@@ -53,7 +71,9 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
                     [nextHop] = SelectNextHop(i, Model, Neighbors, Sensors, dissink, b);
                 end
                 % Sent a packet if have any neighbors
-                if (nextHop ~= -1 && Model.attacker(i) == 0)
+
+                if (nextHop ~= -1 && Model.Blackhole_attacker(i) == 0 &&  Model.Grayhole_attacker(i) == 0)
+
                     Packets{i, nextHop} = Packet;
                     Send(i, nextHop) = 1;
                     sap = sap + 1;
@@ -62,6 +82,22 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
                         (Model.ETX * PacketSize + Model.Efs * PacketSize);
                     Sensors(i).T = Sensors(i).T + (PacketSize * Model.Ts);
                     Sensors(i).Buffer{b} = {};
+                    
+                elseif (nextHop ~= -1 && Model.Blackhole_attacker(i) == 0  &&  Model.Grayhole_attacker(i) == 1)
+                    
+                        if (p < Model.P_grayhole)
+                            
+                            Packets{i, nextHop} = Packet;
+                            Send(i, nextHop) = 1;
+                            sap = sap + 1;
+                            sapv(i) = sapv(i) + 1;
+                            Sensors(i).E = Sensors(i).E - ...
+                                (Model.ETX * PacketSize + Model.Efs * PacketSize);
+                            Sensors(i).T = Sensors(i).T + (PacketSize * Model.Ts);
+                            Sensors(i).Buffer{b} = {};
+                        
+                        end
+                    
                 end
 
             end
