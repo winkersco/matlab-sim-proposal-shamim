@@ -31,7 +31,9 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
                     [nextHop] = SelectNextHop(i, Model, Neighbors, Sensors, dissink, -1);
                 end
                 % Sent a packet if have any neighbors
+
                 if (nextHop ~= -1 && Model.Blackhole_attacker(i) == 0  &&  Model.Grayhole_attacker(i) == 0)
+
                     Packet = ConfigurePaket('Data', Model, i, nextHop);
                     Packets{i, nextHop} = Packet;
                     Send(i, nextHop) = 1;
@@ -69,7 +71,9 @@ function [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, Packet
                     [nextHop] = SelectNextHop(i, Model, Neighbors, Sensors, dissink, b);
                 end
                 % Sent a packet if have any neighbors
+
                 if (nextHop ~= -1 && Model.Blackhole_attacker(i) == 0 &&  Model.Grayhole_attacker(i) == 0)
+
                     Packets{i, nextHop} = Packet;
                     Send(i, nextHop) = 1;
                     sap = sap + 1;
