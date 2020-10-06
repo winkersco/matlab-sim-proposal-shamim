@@ -5,11 +5,12 @@ function [nextHop] = SelectNextHop(Sender, Model, Neighbors, Sensors, dissink, b
     n = Model.n;
     candidates = [];
     
+    disp(['sender #', num2str(Sender)]);
 
     for j = 1:n
 
-        if (Neighbors(Sender, j) == 1 && Sensors(j).E > 0)
-            reward = calculateReward(Sensors(j), dissink);
+        if (Neighbors(Sender, j) == 1 && Sensors(j).E > 0 && Sensors(j).T < Model.ThermalThreshold)
+            reward = calculateReward(Model, Sensors(j), dissink);
             nextQ = cauculatenextQ(Sensors(j), Model, Neighbors, Q);
             Q(Sender, j) = Q(Sender, j) + Model.alpha * (reward + (Model.gamma * nextQ) - Q(Sender, j));
             % Q(Sender,j)=Q(Sender,j) + Model.Lr*(reward(Sender,j));
@@ -23,7 +24,7 @@ function [nextHop] = SelectNextHop(Sender, Model, Neighbors, Sensors, dissink, b
     else
         for j = 1:n
             flag = 0;
-            if (Q(Sender, j) ~= 0 && Sensors(j).E > 0 )
+            if (Q(Sender, j) ~= 0 && Sensors(j).E > 0 && Sensors(j).T < Model.ThermalThreshold)
                 if(b == -1)
                     flag = 1;
                 else
@@ -52,4 +53,5 @@ function [nextHop] = SelectNextHop(Sender, Model, Neighbors, Sensors, dissink, b
         end
     end
 
+    disp(['nexthop #', num2str(nextHop)]);
 end

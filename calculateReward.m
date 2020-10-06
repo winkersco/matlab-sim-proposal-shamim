@@ -1,39 +1,33 @@
-function reward = calculateReward(Receiver, dissink)
+function reward = calculateReward(Model, Receiver, dissink)
 
-    global sapv rapv
+    global sapv rapv fapv
 
-    if (sapv(Receiver.id) == 0 && rapv(Receiver.id) == 0)
-        Trust = 0;
-    elseif (sapv(Receiver.id) <= rapv(Receiver.id))
-        sr = sapv(Receiver.id)/rapv(Receiver.id)
-        rate = exp(sr)
-        Trust = ((sapv(Receiver.id) + (0.5 * rate)) / (sapv(Receiver.id) + rate + rapv(Receiver.id))*10);
+    if rapv(Receiver.id) == 0
+        Trust =  0.5;
     else
-        if (rapv(Receiver.id) == 0)
-            sr = sapv(Receiver.id)
-        else
-            sr = sapv(Receiver.id)/rapv(Receiver.id)
-        end
-        rate = exp(sr)
-        Trust = (10 - ((sapv(Receiver.id) + (0.5 * rate)) / (sapv(Receiver.id) + rate + rapv(Receiver.id))*10));
+        Trust =  fapv(Receiver.id) / rapv(Receiver.id);
     end
 
     if dissink(Receiver.id) == -1
-        Hop = length(dissink) * 100;
+        Hop = 0;
     else
-        Hop = dissink(Receiver.id);
+        Hop = 1 - (dissink(Receiver.id) / Model.HopMax);
     end
 
-    E = Receiver.E;
-    T = Receiver.T;
-    reward = E - T + Trust - Hop;
+    E = (Receiver.E / Model.EnergyMax);
+    
+    T = 1 - (Receiver.T / Model.ThermalThreshold);
+    
+    reward = Model.WEnergy*E + Model.WThermal*T + Model.WTrust*Trust + Model.WHop*Hop;
 
     disp(['candidate #', num2str(Receiver.id)]);
     disp(['sapv ', num2str(sapv(Receiver.id))]);
     disp(['rapv ', num2str(rapv(Receiver.id))]);
+    disp(['fapv ', num2str(fapv(Receiver.id))]);
     disp(['Trust ', num2str(Trust)]);
     disp(['E ', num2str(E)]);
     disp(['T ', num2str(T)]);
     disp(['Hop ', num2str(Hop)]);
+    disp(['reward ', num2str(reward)]);
     disp('---------');
 end

@@ -1,4 +1,4 @@
-function deadNum = ploter(Sensors, Model)
+function deadNum = ploter(Sensors, Model, Area)
     %% Developed by Amin Nazari
     % 	aminnazari91@gmail.com
     %	0918 546 2272
@@ -31,6 +31,11 @@ function deadNum = ploter(Sensors, Model)
     end
 
     plot(Sensors(n + 1).xd, Sensors(n + 1).yd, 'g*', 'MarkerSize', 15);
+    
+    xlim([0 Area.x])
+    ylim([0 Area.y])
+    grid on
     axis square
+    legend('Location','NorthEastOutside');
 
 end

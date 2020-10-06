@@ -4,12 +4,12 @@ function [Area, Model] = setParameters(n)
     %	0918 546 2272
     %%%%%%%%%%%%%%%%%%%%%%%%% Set Inital PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%
     %Field Dimensions - x and y maximum (in meters)
-    Area.x = 10;
-    Area.y = 10;
+    Area.x = 5;
+    Area.y = 5;
 
     %Sink Motion pattern
     Sinkx = 0.5 * Area.x;
-    Sinky = Sinkx;
+    Sinky = 0.5 * Area.y;
 
     %Optimal Election Probability of a node to become cluster head
     %p=0.1;
@@ -77,13 +77,34 @@ function [Area, Model] = setParameters(n)
     
 
     %Blackhole_attacker
-    Blackhole_attacker = [0 1 0 0 0];
+    Blackhole_attacker = [0 0 0 0 0];
     
     %Grayhole_attacker
-    Grayhole_attacker = [0 0 0 1 0];
+    Grayhole_attacker = [0 0 0 0 0];
     
     %grayhole possibility
     P_grayhole=0.5;
+    
+    %Thermal Threshold
+    ThermalThreshold = 10;
+    
+    %Energy Max
+    EnergyMax = Eo;
+    
+    %Hop Max
+    HopMax = n;
+    
+    %W of Thermal
+    WThermal = 0.3;
+    
+    %W of Energy
+    WEnergy = 0.3;
+    
+    %W of Hop
+    WHop = 0.3;
+    
+    %W of Trust
+    WTrust = 0.3;
 
     %%%%%%%%%%%%%%%%%%%%%%%%% END OF PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -117,6 +138,13 @@ function [Area, Model] = setParameters(n)
     Model.Blackhole_attacker = Blackhole_attacker;
     Model.Grayhole_attacker = Grayhole_attacker;
     Model.P_grayhole = P_grayhole;
+    Model.ThermalThreshold = ThermalThreshold;
+    Model.EnergyMax = EnergyMax;
+    Model.HopMax = HopMax;
+    Model.WThermal = WThermal;
+    Model.WEnergy = WEnergy;
+    Model.WHop = WHop;
+    Model.WTrust = WTrust;
 
 
 end

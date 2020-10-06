@@ -17,7 +17,7 @@ n = 5; %Number of Nodes in the field
 CreateRandomSen(Model, Area); %Create a random scenario
 load Locations%Load sensor Location
 Sensors = ConfigureSensors(Model, n, X, Y);
-ploter(Sensors, Model); %Plot sensors
+ploter(Sensors, Model, Area); %Plot sensors
 
 %%find Neighbors%%
 Neighbors = findNeighbors(Model, Sensors);
@@ -35,28 +35,37 @@ end
 
 SRP = zeros(1, Model.tmax); %number of sent routing packets
 RRP = zeros(1, Model.tmax); %number of receive routing packets
+FRP = zeros(1, Model.tmax); %number of forward routing packets
 SDP = zeros(1, Model.tmax); %number of sent data packets
 RDP = zeros(1, Model.tmax); %number of receive data packets
+FDP = zeros(1, Model.tmax); %number of forward data packets
 
 Sum_DEAD = zeros(1, Model.tmax);
 %CLUSTERHS=zeros(1,Model.tmax);
 AllSensorEnergy = zeros(1, Model.tmax);
+%%find numhop%%
+dissink = distancetosink(Model, Sensors, Neighbors);
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Start Simulation %%%%%%%%%%%%%%%%%%%%%%%%%
-global srp rrp sdp rdp sapv rapv Q
+global srp rrp frp sdp rdp fdp sapv rapv fapv Q
 srp = 0; %counter number of sent routing packets
 rrp = 0; %counter number of receive routing packets
+frp = 0; %counter number of forward routing packets
 sdp = 0; %counter number of sent data packets
 rdp = 0; %counter number of receive data packets
+fdp = 0; %counter number of forward data packets
 sapv = zeros(1, n); %counter number of sent data packets for nodes
 rapv = zeros(1, n+1); %counter number of receive data packets for nodes
+fapv = zeros(1, n); %counter number of forward data packets for nodes
 Q = zeros(n, n); %counter number of Q for nodes
 
 %Save metrics
 SRP(1) = srp;
 RRP(1) = rrp;
+FRP(1) = frp;
 SDP(1) = sdp;
 RDP(1) = rdp;
+FDP(1) = fdp;
 
 %% Main loop program for start Q-learning
 for t = 1:1:Model.tmax
@@ -71,26 +80,23 @@ for t = 1:1:Model.tmax
     %initialization per round
     SRP(t + 1) = srp;
     RRP(t + 1) = rrp;
+    FRP(t + 1) = frp;
     SDP(t + 1) = sdp;
     RDP(t + 1) = rdp;
+    FDP(t + 1) = fdp;
     pause(0.001)%pause simulation
     hold off; %clear figure
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%% plot sensors %%%%%%%%%%%%%%%%%%%%%%%
-    deadNum = ploter(Sensors, Model);
+    deadNum = ploter(Sensors, Model, Area);
 
     %Save t'th period When the first node dies
     if (deadNum >= 1)
-
         if (flag_first_dead == 0)
             first_dead = t;
             flag_first_dead = 1;
         end
-
     end
-
-    %%find numhop%%
-    dissink = distancetosink(Model, Sensors, Neighbors);
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     [Send, Sensors, Packets] = SendAndReceivePackets(Sensors, Model, 'Data', t, Neighbors, dissink);
@@ -129,8 +135,10 @@ for t = 1:1:Model.tmax
 
     SRP(t + 1) = srp;
     RRP(t + 1) = rrp;
+    FRP(t + 1) = frp;
     SDP(t + 1) = sdp;
     RDP(t + 1) = rdp;
+    FDP(t + 1) = fdp;
 
     alive = 0;
     SensorEnergy = 0;
@@ -224,7 +232,7 @@ end % for t=0:1:tmax
 % end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% plot sensors %%%%%%%%%%%%%%%%%%%%%%%
-% deadNum=ploter(Sensors,Model);
+% deadNum=ploter(Sensors,Model, Area);
 
 %Save r'th period When the first node dies
 %if (deadNum>=1)
@@ -274,7 +282,7 @@ end % for t=0:1:tmax
 % for i=1:1:1%NumPacket
 
 %Plotter
-% deadNum=ploter(Sensors,Model);
+% deadNum=ploter(Sensors,Model, Area);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% All sensor send data packet to  CH
 %  for j=1:length(TotalCH)
