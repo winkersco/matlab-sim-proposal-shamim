@@ -1,7 +1,6 @@
-function CreateRandomSen(Model, Area)
-    %% Developed by Amin Nazari
-    % 	aminnazari91@gmail.com
-    %	0918 546 2272
+function createRandomScenario(Model, Area)
+    %% Developed by Shamim Ahmadinezhad
+    
     n = Model.n;
     x = Area.x;
     y = Area.y;

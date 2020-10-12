@@ -1,6 +1,6 @@
-function reward = calculateReward(Model, Receiver, dissink)
+function reward = calculateReward(Model, Receiver, HopToSink)
 
-    global sapv rapv fapv
+    global rapv fapv
 
     if rapv(Receiver.id) == 0
         Trust =  0.5;
@@ -8,10 +8,10 @@ function reward = calculateReward(Model, Receiver, dissink)
         Trust =  fapv(Receiver.id) / rapv(Receiver.id);
     end
 
-    if dissink(Receiver.id) == -1
+    if HopToSink(Receiver.id) == -1
         Hop = 0;
     else
-        Hop = 1 - (dissink(Receiver.id) / Model.HopMax);
+        Hop = 1 - (HopToSink(Receiver.id) / Model.HopMax);
     end
 
     E = (Receiver.E / Model.EnergyMax);
@@ -20,14 +20,10 @@ function reward = calculateReward(Model, Receiver, dissink)
     
     reward = Model.WEnergy*E + Model.WThermal*T + Model.WTrust*Trust + Model.WHop*Hop;
 
-    disp(['candidate #', num2str(Receiver.id)]);
-    disp(['sapv ', num2str(sapv(Receiver.id))]);
-    disp(['rapv ', num2str(rapv(Receiver.id))]);
-    disp(['fapv ', num2str(fapv(Receiver.id))]);
-    disp(['Trust ', num2str(Trust)]);
-    disp(['E ', num2str(E)]);
-    disp(['T ', num2str(T)]);
-    disp(['Hop ', num2str(Hop)]);
-    disp(['reward ', num2str(reward)]);
-    disp('---------');
+    fprintf('Candidate #%i\n', Receiver.id);
+    fprintf('Trust => P:%f Forward:%i Receive:%i\n', Trust, fapv(Receiver.id), rapv(Receiver.id));
+    fprintf('Energy => P:%f Energy:%f EnergyMax:%f\n', E, Receiver.E, Model.EnergyMax);
+    fprintf('Thermal => P:%f Thermal:%f ThermalThreshold:%f\n', T, Receiver.T, Model.ThermalThreshold);
+    fprintf('Hop => P:%f Hop:%i HopMax:%i\n', T, HopToSink(Receiver.id), Model.HopMax);
+    fprintf('Reward => %f\n\n', reward);
 end

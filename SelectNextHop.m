@@ -1,20 +1,20 @@
-function [nextHop] = SelectNextHop(Sender, Model, Neighbors, Sensors, dissink, b)
+function [nextHop] = selectNextHop(Sender, Model, Neighbors, Sensors, HopToSink, b)
     %   SELECTNEXTHOP Summary of this function goes here
     %   Detailed explanation goes here
     global Q
     n = Model.n;
     candidates = [];
-    
-    disp(['sender #', num2str(Sender)]);
+
+    fprintf('------------------\n');
+    fprintf('Sender #%i\n', Sender);
+    fprintf('------------------\n');
 
     for j = 1:n
 
         if (Neighbors(Sender, j) == 1 && Sensors(j).E > 0 && Sensors(j).T < Model.ThermalThreshold)
-            reward = calculateReward(Model, Sensors(j), dissink);
+            reward = calculateReward(Model, Sensors(j), HopToSink);
             nextQ = cauculatenextQ(Sensors(j), Model, Neighbors, Q);
-            Q(Sender, j) = Q(Sender, j) + Model.alpha * (reward + (Model.gamma * nextQ) - Q(Sender, j));
-            % Q(Sender,j)=Q(Sender,j) + Model.Lr*(reward(Sender,j));
-            %candidates=[candidates, j];
+            Q(Sender, j) = Q(Sender, j) + Model.Alpha * (reward + (Model.Gamma * nextQ) - Q(Sender, j));
         end
 
     end
@@ -52,6 +52,6 @@ function [nextHop] = SelectNextHop(Sender, Model, Neighbors, Sensors, dissink, b
             %nextHop = candidates(1,randomIndex);
         end
     end
-
-    disp(['nexthop #', num2str(nextHop)]);
+    
+    fprintf('******* NextHop #%i *******\n\n', nextHop);
 end

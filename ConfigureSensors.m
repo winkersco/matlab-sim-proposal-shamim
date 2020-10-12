@@ -1,52 +1,54 @@
-function Sensors = ConfigureSensors(Model, n, GX, GY)
-    %% Developed by Amin Nazari
-    % 	aminnazari91@gmail.com
-    %	0918 546 2272
-    %% Configuration EmptySensor
+function Sensors = configureSensors(Model, n, GX, GY)
+    %% Developed by Shamim Ahmadinezhad
+
+    %Configuration EmptySensor
     EmptySensor.xd = 0;
     EmptySensor.yd = 0;
-    EmptySensor.G = 0;
     EmptySensor.df = 0;
-    EmptySensor.type = 'N';
     EmptySensor.E = 0;
     EmptySensor.id = 0;
+    EmptySensor.RR = 0;
     EmptySensor.dis2sink = 0;
-    EmptySensor.dis2ch = 0;
-    EmptySensor.MCH = n + 1; %Member of CH
     EmptySensor.DataRate = 0;
     EmptySensor.T = 0;
     EmptySensor.Buffer = cell(1, Model.BufferLength);
     
-    %% Configuration Sensors
+    %Configuration sensors
     Sensors = repmat(EmptySensor, n + 1, 1);
 
     for i = 1:1:n
-        %set x location
+        %Sensor x location
         Sensors(i).xd = GX(i);
-        %set y location
+
+        %Sensor y location
         Sensors(i).yd = GY(i);
-        %Determinate whether in previous periods has been clusterhead or not? not=0 and be=n
-        Sensors(i).G = 0;
-        %dead flag. Whether dead or alive S(i).df=0 alive. S(i).df=1 dead.
+
+        %Sensor dead flag. Whether dead or alive S(i).df=0 alive. S(i).df=1 dead.
         Sensors(i).df = 0;
-        %initially there are not each cluster heads
-        Sensors(i).type = 'N';
-        %initially all nodes have equal Energy
+
+        %Sensor energy
         Sensors(i).E = Model.Eo;
-        %id
+
+        %Sensor id
         Sensors(i).id = i;
-        %Sensors(i).RR=Model.RR;
-        %all nodes have Data Rate
-        Sensors(i).DataRate = Model.DataRate;
-        %initially all nodes have equal Thermal
-        Sensors(i).T = Model.To;
-        %initially all nodes have equal Buffer Length
-        Sensors(i).Buffer = cell(1, Model.BufferLength);
         
+        %Sensor radio range
+        Sensors(i).RR = Model.RR;
+
+        %Sensor data rate
+        Sensors(i).DataRate = Model.DataRate;
+
+        %Sensor initial temperature
+        Sensors(i).T = Model.To;
+
+        %Sensor buffer
+        Sensors(i).Buffer = cell(1, Model.BufferLength);
     end
 
     Sensors(n + 1).xd = Model.Sinkx;
     Sensors(n + 1).yd = Model.Sinky;
     Sensors(n + 1).E = 100;
     Sensors(n + 1).id = n + 1;
+    Sensors(n + 1).RR = Model.RR;
+
 end

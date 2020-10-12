@@ -1,92 +1,70 @@
-function [Area, Model] = setParameters(n)
-    %% Developed by Amin Nazari
-    % 	aminnazari91@gmail.com
-    %	0918 546 2272
-    %%%%%%%%%%%%%%%%%%%%%%%%% Set Inital PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%
-    %Field Dimensions - x and y maximum (in meters)
-    Area.x = 5;
-    Area.y = 5;
+function [Area, Model] = setParameters()
+    %% Developed by Shamim Ahmadinezhad
 
-    %Sink Motion pattern
+    %%%%%%%%%%%%%%%%%%%%%%%%% Set Inital PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%
+    
+    %Number of nodes
+    n = 8;
+    
+    %Field dimensions - x and y maximum (in meters)
+    Area.x = 2;
+    Area.y = 2;
+
+    %Sink motion pattern
     Sinkx = 0.5 * Area.x;
     Sinky = 0.5 * Area.y;
 
-    %Optimal Election Probability of a node to become cluster head
-    %p=0.1;
+    %Static scenario mode
+    StaticScenario = true;
 
-    %%%%%%%%%%%%%%%%%%%%%%%%% Energy Model (all values in Joules)%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%% Energy Model (all values in Joules) %%%%%%%%%%
+    
     %Initial Energy
-    Eo = 0.01;
+    Eo = 0.6;
+    
+    %Transmitter energy consume (per bits)
+    ETE = 16.7 * 0.000000001;
+    
+    %Receiver energy consume (per bits)
+    ERE = 36.1 * 0.000000001;
+    
+    %Amplified circuit energy consume (per bits)
+    EAC = 1.97 * 0.000000001;
 
-    %Eelec=Etx=Erx
-    ETX = 50 * 0.000000001;
-    ERX = 50 * 0.000000001;
-
-    %Transmit Amplifier types
-    Efs = 10 * 0.000000000001;
-    Emp = 0.0013 * 0.000000000001;
-
-    %Data Aggregation Energy
-    EDA = 5 * 0.000000001;
-
-    %Computation of do
-    %do=sqrt(Efs/Emp);
-
-    %%%%%%%%%%%%%%%%%%%%%%%%% Run Time Parameters %%%%%%%%%%%%%%%%%%%%%%%%%
-    %maximum number of rounds
-    %rmax=5000;
-
+    %%%%%%%%%%%%%%%%%%%%%%%%% Run Time Parameters %%%%%%%%%%%%%%%%%%%%%%%%%%
+    
     %Data packet size
-    DpacketLen = 4000;
+    DpacketLength = 4000;
 
     %Hello packet size
-    HpacketLen = 100;
-
-    %Number of Packets sended in steady-state phase
-    %NumPacket=10;
-
-    %Redio Range
-    RR = 0.5 * Area.x * sqrt(2);
-
-    %maximum time
-    tmax = 10;
-
-    %Data Rate
-    DataRate = 5;
-
-    %Initial Thermal
-    To = 2;
-
-    %cool Thermal
-    Tc = 0.0001;
-
-    %send Thermal
-    Ts = 0.0001;
-
-    %Receive Thermal
-    Tr = 0.0001;
-
-    %learning rate
-    alpha = 0.5;
-
-    %Discount rate
-    gamma = 0.5;
-
+    HpacketLength = 100;
+    
     %Buffer Length
     BufferLength = 32;
-    
 
-    %Blackhole_attacker
-    Blackhole_attacker = [0 0 0 0 0];
-    
-    %Grayhole_attacker
-    Grayhole_attacker = [0 0 0 0 0];
-    
-    %grayhole possibility
-    P_grayhole=0.5;
+    %Radio Range
+    RR = 0.5 * Area.x * sqrt(2);
+
+    %Time Max
+    TimeMax = 30000;
+
+    %Data Rate
+    DataRate = 1;
+
+    %Initial Thermal
+    To = 70;
+
+    %cool Thermal
+    Tc = 0.1;
+
+    %send Thermal
+    Ts = 0.2;
+
+    %Receive Thermal
+    Tr = 0.1;
     
     %Thermal Threshold
-    ThermalThreshold = 10;
+    ThermalThreshold = 101;
     
     %Energy Max
     EnergyMax = Eo;
@@ -94,17 +72,34 @@ function [Area, Model] = setParameters(n)
     %Hop Max
     HopMax = n;
     
+    %%%%%%%%%%%%%%%%%%%%%%%%% Routing Parameters %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    %learning rate
+    Alpha = 0.5;
+
+    %Discount rate
+    Gamma = 0.5;
+    
+    %Blackhole Attacker
+    BlackholeAttacker = [0 0 0 0 0 0 0 0 0 0 0];
+    
+    %Grayhole Attacker
+    GrayholeAttacker = [0 0 0 0 0 0 0 0 0 0 0];
+    
+    %Grayhole Possibility
+    GrayholePossibility = 0.5;
+    
     %W of Thermal
-    WThermal = 0.3;
+    WThermal = 0.25;
     
     %W of Energy
-    WEnergy = 0.3;
+    WEnergy = 0.25;
     
     %W of Hop
-    WHop = 0.3;
+    WHop = 0.25;
     
     %W of Trust
-    WTrust = 0.3;
+    WTrust = 0.25;
 
     %%%%%%%%%%%%%%%%%%%%%%%%% END OF PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -112,39 +107,32 @@ function [Area, Model] = setParameters(n)
     Model.n = n;
     Model.Sinkx = Sinkx;
     Model.Sinky = Sinky;
-    %Model.p=p;
+    Model.StaticScenario = StaticScenario;
     Model.Eo = Eo;
-    Model.ETX = ETX;
-    Model.ERX = ERX;
-    Model.Efs = Efs;
-    Model.Emp = Emp;
-    Model.EDA = EDA;
-    %Model.do=do;
-    %Model.rmax=rmax;
-    Model.DpacketLen = DpacketLen;
-    Model.HpacketLen = HpacketLen;
-    %Model.NumPacket=NumPacket;
+    Model.ETE = ETE;
+    Model.ERE = ERE;
+    Model.EAC = EAC;
+    Model.DpacketLength = DpacketLength;
+    Model.HpacketLength = HpacketLength;
+    Model.BufferLength = BufferLength;
     Model.RR = RR;
-    Model.tmax = tmax;
+    Model.TimeMax = TimeMax;
     Model.DataRate = DataRate;
     Model.To = To;
     Model.Tc = Tc;
     Model.Ts = Ts;
     Model.Tr = Tr;
-    Model.alpha = alpha;
-    Model.gamma = gamma;
-    Model.BufferLength = BufferLength;
-
-    Model.Blackhole_attacker = Blackhole_attacker;
-    Model.Grayhole_attacker = Grayhole_attacker;
-    Model.P_grayhole = P_grayhole;
     Model.ThermalThreshold = ThermalThreshold;
     Model.EnergyMax = EnergyMax;
     Model.HopMax = HopMax;
+    Model.Alpha = Alpha;
+    Model.Gamma = Gamma;
+    Model.BlackholeAttacker = BlackholeAttacker;
+    Model.GrayholeAttacker = GrayholeAttacker;
+    Model.GrayholePossibility = GrayholePossibility;
     Model.WThermal = WThermal;
     Model.WEnergy = WEnergy;
     Model.WHop = WHop;
     Model.WTrust = WTrust;
-
 
 end

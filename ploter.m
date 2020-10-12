@@ -1,28 +1,18 @@
-function deadNum = ploter(Sensors, Model, Area)
-    %% Developed by Amin Nazari
-    % 	aminnazari91@gmail.com
-    %	0918 546 2272
-    deadNum = 0;
+function ploter(Sensors, Model, Area, Send, t)
+    %% Developed by Shamim Ahmadinezhad
+
+    hold off; %clear figure
     n = Model.n;
 
     for i = 1:n
         %check dead node
         if (Sensors(i).E > 0)
-
-
-            if (Sensors(i).type == 'N' && Model.Blackhole_attacker(Sensors(i).id) == 0 && ...
-                    Model.Grayhole_attacker(Sensors(i).id) == 0)
+            if (Model.BlackholeAttacker(Sensors(i).id) == 0 && Model.GrayholeAttacker(Sensors(i).id) == 0)
                 plot(Sensors(i).xd, Sensors(i).yd, 'o');
-            elseif (Sensors(i).type == 'N' && (Model.Blackhole_attacker(Sensors(i).id) == 1 || ...
-                    Model.Grayhole_attacker(Sensors(i).id) == 1)) %Blackhole attacker
-
+            elseif (Model.BlackholeAttacker(Sensors(i).id) == 1 || Model.GrayholeAttacker(Sensors(i).id) == 1) %Blackhole attacker
                 plot(Sensors(i).xd, Sensors(i).yd, 'ks', 'MarkerSize', 10, 'MarkerFaceColor', 'k');
-            else %Sensors.type=='C'
-                plot(Sensors(i).xd, Sensors(i).yd, 'kx', 'MarkerSize', 10);
             end
-
         else
-            deadNum = deadNum + 1;
             plot(Sensors(i).xd, Sensors(i).yd, 'red .');
         end
 
@@ -31,6 +21,21 @@ function deadNum = ploter(Sensors, Model, Area)
     end
 
     plot(Sensors(n + 1).xd, Sensors(n + 1).yd, 'g*', 'MarkerSize', 15);
+    
+    for i = 1:n
+        for j = 1:n+1
+            if (Sensors(i).E > 0 && Sensors(j).E > 0)
+                if (Send(i, j) == 1)
+                    XL = [Sensors(i).xd, Sensors(j).xd];
+                    YL = [Sensors(i).yd, Sensors(j).yd];
+                    hold on
+                    quiver( XL(1),YL(1),XL(2)-XL(1),YL(2)-YL(1),0 ,'MaxHeadSize',0.5);
+                end
+            end
+        end
+    end
+    
+    title(sprintf('time=%d', t))
     
     xlim([0 Area.x])
     ylim([0 Area.y])
