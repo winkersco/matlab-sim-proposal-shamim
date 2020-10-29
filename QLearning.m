@@ -17,6 +17,10 @@ else
     createRandomScenario(Model, Area); %Create a random scenario
 end
 load Locations %Load sensor Location
+
+% createRandomSenses(Model); %Create Random sensing model
+load Senses %Load Sensing model
+
 Sensors = configureSensors(Model, n, X, Y); %Configure sensors
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Initial Calculation %%%%%%%%%%%%%%%%%%%%
@@ -58,14 +62,14 @@ for t = 1:1:Model.TimeMax
     HopToSink = calculateHopToSink(Model, Sensors, Neighbors); %Calculate hop to sink
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%% sending and routing %%%%%%%%%%%%%%%%
-    [Send, Sensors, Packets] = sendAndReceivePackets(Sensors, Model, 'Data', t, Neighbors, Distances, HopToSink);
+    [Sensors, Send] = sendAndReceivePackets(Sensors, Model, 'Data', t, Neighbors, Distances, Senses, HopToSink);
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%% plot sensors %%%%%%%%%%%%%%%%%%%%%%%
-    %     ploter(Sensors, Model, Area, Send, t);
-    %     pause(0.001);
-    %     picname=sprintf('Figures/Figure_%d', t);
-    %     pictype='png';
-    %     saveas(gcf,picname,pictype);
+    ploter(Sensors, Model, Area, Send, t);
+    pause(0.001);
+    picname=sprintf('Figures/Figure_%d', t);
+    pictype='png';
+    saveas(gcf,picname,pictype);
     
 
     %% STATISTICS
@@ -133,7 +137,7 @@ disp('End of Simulation');
 toc;
 disp('Create Report...')
 
-filename = sprintf('qlearning%d.mat', n);
+filename = sprintf('%s%d.mat', Model.Routing, n);
 
 %% Save Report
 save(filename);

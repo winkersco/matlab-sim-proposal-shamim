@@ -1,4 +1,4 @@
-function ploter(Sensors, Model, Area, Send, t)
+function ploter(Sensors, Model, Area, SendFromSense, t)
     %% Developed by Shamim Ahmadinezhad
 
     hold off; %clear figure
@@ -15,6 +15,12 @@ function ploter(Sensors, Model, Area, Send, t)
         else
             plot(Sensors(i).xd, Sensors(i).yd, 'red .');
         end
+        
+        % show RR
+        th = 0:pi/50:2*pi;
+        xunit = Model.RR/2 * cos(th) + Sensors(i).xd;
+        yunit = Model.RR/2 * sin(th) + Sensors(i).yd;
+        plot(xunit, yunit);
 
         hold on;
 
@@ -25,7 +31,7 @@ function ploter(Sensors, Model, Area, Send, t)
     for i = 1:n
         for j = 1:n+1
             if (Sensors(i).E > 0 && Sensors(j).E > 0)
-                if (Send(i, j) == 1)
+                if (SendFromSense(i, j) == 1)
                     XL = [Sensors(i).xd, Sensors(j).xd];
                     YL = [Sensors(i).yd, Sensors(j).yd];
                     hold on

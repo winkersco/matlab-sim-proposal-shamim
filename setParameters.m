@@ -46,10 +46,10 @@ function [Area, Model] = setParameters()
     RR = 0.5 * Area.x * sqrt(2);
 
     %Time Max
-    TimeMax = 30000;
+    TimeMax = 50000;
 
     %Data Rate
-    DataRate = 1;
+    DataRate = 5;
 
     %Initial Thermal
     To = 70;
@@ -73,6 +73,9 @@ function [Area, Model] = setParameters()
     HopMax = n;
     
     %%%%%%%%%%%%%%%%%%%%%%%%% Routing Parameters %%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    %routing (qlearning)
+    Routing = 'myRouting';
 
     %learning rate
     Alpha = 0.5;
@@ -125,6 +128,7 @@ function [Area, Model] = setParameters()
     Model.ThermalThreshold = ThermalThreshold;
     Model.EnergyMax = EnergyMax;
     Model.HopMax = HopMax;
+    Model.Routing = Routing;
     Model.Alpha = Alpha;
     Model.Gamma = Gamma;
     Model.BlackholeAttacker = BlackholeAttacker;

@@ -11,7 +11,8 @@ function Sensors = configureSensors(Model, n, GX, GY)
     EmptySensor.dis2sink = 0;
     EmptySensor.DataRate = 0;
     EmptySensor.T = 0;
-    EmptySensor.Buffer = cell(1, Model.BufferLength);
+    EmptySensor.Buffer = 0;
+    EmptySensor.BufferLength = 0;
     
     %Configuration sensors
     Sensors = repmat(EmptySensor, n + 1, 1);
@@ -42,7 +43,8 @@ function Sensors = configureSensors(Model, n, GX, GY)
         Sensors(i).T = Model.To;
 
         %Sensor buffer
-        Sensors(i).Buffer = cell(1, Model.BufferLength);
+        Sensors(i).Buffer = CQueue();
+        Sensors(i).BufferLength = Model.BufferLength;
     end
 
     Sensors(n + 1).xd = Model.Sinkx;
